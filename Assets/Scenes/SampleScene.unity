@@ -328,9 +328,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aec7f06401242b4d8d2a196110cfbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animatorController: {fileID: 9100000, guid: 6e9b13945f828cb4492b88b17eeed55c, type: 2}
   _playerAvatars:
-  - {fileID: 3897210454481101732, guid: ac8d284e74d5cea4b90c587a5eba953f, type: 3}
+  - {fileID: 4239230386127492932, guid: ac8d284e74d5cea4b90c587a5eba953f, type: 3}
+  _quantityCharacters: 1
+  _timeToReady: 30
+  _timeToMove: 10
 --- !u!4 &1306200199
 Transform:
   m_ObjectHideFlags: 0

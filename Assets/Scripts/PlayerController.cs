@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerController: MonoBehaviour
     private PlayerInput _playerInput;
     private Rigidbody _rigidbody;
     private Vector2 _moveDirection;
+    private CharacterControllerState _characterController;
 
     private void Awake()
     {
@@ -21,6 +23,27 @@ public class PlayerController: MonoBehaviour
         _playerInput.Player.Move.canceled += Move_canceled;
         _rigidbody = GetComponent<Rigidbody>();
     }
+
+    private void Start()
+    {
+        _characterController.StartState();
+    }
+
+    private void Update()
+    {
+        _characterController.UpdateState();
+    }
+    public void SetCharacterStateMachine(CharacterStateMachine characterStateMachine)
+    {
+        characterStateMachine.NewCharacterControllerState.AddListener(NewCharacterControllerState);
+        _characterController = characterStateMachine.GetCurrentCharacterState();
+    }
+
+    private void NewCharacterControllerState(CharacterControllerState characterControllerState)
+    {
+        _characterController= characterControllerState;
+    }
+
     private void Move_started(InputAction.CallbackContext context)
     {
         _moveDirection = context.ReadValue<Vector2>();
