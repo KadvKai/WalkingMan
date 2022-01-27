@@ -6,46 +6,41 @@ using UnityEngine.Events;
 public abstract class CharacterControllerState
 {
     protected Animator _characterAnimator;
-    protected Rigidbody _characterRigidbody;
-    protected float _timeChangeState;
-    protected int _stateAnimations;
-    protected int _newStateAnimations;
-    protected int _quantityAnimations;
-    public UnityEvent<CharacterControllerState> CharacterStateEnd=new UnityEvent<CharacterControllerState>();
+    //protected Rigidbody _characterRigidbody;
+    protected float _timeChangeStateAnimations;
+    protected bool _readyChangeStateAnimations=true;
+    //protected int _quantityAnimations=1;
+    public UnityEvent<CharacterControllerState> CharacterStateEnd = new UnityEvent<CharacterControllerState>();
 
-    public  CharacterControllerState(GameObject character)
+    public CharacterControllerState(GameObject character)
     {
         _characterAnimator = character.GetComponent<Animator>();
-        _characterRigidbody = character.GetComponent<Rigidbody>();
     }
 
     public virtual void StartState()
     {
-        Debug.Log("virtual");
-        _stateAnimations = 0;
-        _timeChangeState = Random.Range(10, 15);
+        _timeChangeStateAnimations = Random.Range(0, 5);
     }
+
     public virtual void UpdateState()
     {
-        if (_timeChangeState < 0)
+        if (_readyChangeStateAnimations)
         {
-            do
+            if (_timeChangeStateAnimations < 0)
             {
-                _newStateAnimations = Random.Range(0, _quantityAnimations);
+                ChangeStateAnimations();
             }
-            while (_newStateAnimations == _stateAnimations);
-            _stateAnimations = _newStateAnimations;
-            _characterAnimator.SetInteger("StateAnimations", _stateAnimations);
-            _timeChangeState = Random.Range(10, 15);
-        }
-        else
-        {
-            _timeChangeState -= Time.deltaTime;
+            else
+            {
+                _timeChangeStateAnimations -= Time.deltaTime;
+            }
         }
     }
-    protected void EndState()
+
+    protected virtual void ChangeStateAnimations() { }
+    /*protected void EndState()
     {
         CharacterStateEnd.Invoke(this);
-    }
+    }*/
 
 }

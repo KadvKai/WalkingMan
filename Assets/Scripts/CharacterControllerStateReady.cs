@@ -7,10 +7,9 @@ public class CharacterControllerStateReady : CharacterControllerState
     public CharacterControllerStateReady(GameObject character) : base(character)
     {
     }
-    public override void StartState()
+    protected override void ChangeStateAnimations()
     {
-        Debug.Log("Анимация Ready");
         _characterAnimator.SetTrigger("Ready");
+        _readyChangeStateAnimations = false;
     }
-    public override void UpdateState() { }
 }

@@ -41,7 +41,8 @@ public class PlayerController: MonoBehaviour
 
     private void NewCharacterControllerState(CharacterControllerState characterControllerState)
     {
-        _characterController= characterControllerState;
+        _characterController = characterControllerState;
+        _characterController.StartState();
     }
 
     private void Move_started(InputAction.CallbackContext context)
