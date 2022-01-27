@@ -7,8 +7,8 @@ public abstract class CharacterControllerState
 {
     protected Animator _characterAnimator;
     //protected Rigidbody _characterRigidbody;
-    protected float _timeChangeStateAnimations;
-    protected bool _readyChangeStateAnimations=true;
+    //protected float _timeChangeStateAnimations;
+    //protected bool _readyChangeStateAnimations=true;
     //protected int _quantityAnimations=1;
     public UnityEvent<CharacterControllerState> CharacterStateEnd = new UnityEvent<CharacterControllerState>();
 
@@ -17,30 +17,10 @@ public abstract class CharacterControllerState
         _characterAnimator = character.GetComponent<Animator>();
     }
 
-    public virtual void StartState()
-    {
-        _timeChangeStateAnimations = Random.Range(0, 5);
-    }
+    public abstract void StartState();
+    
 
-    public virtual void UpdateState()
-    {
-        if (_readyChangeStateAnimations)
-        {
-            if (_timeChangeStateAnimations < 0)
-            {
-                ChangeStateAnimations();
-            }
-            else
-            {
-                _timeChangeStateAnimations -= Time.deltaTime;
-            }
-        }
-    }
-
-    protected virtual void ChangeStateAnimations() { }
-    /*protected void EndState()
-    {
-        CharacterStateEnd.Invoke(this);
-    }*/
+    public abstract void UpdateState();
+    
 
 }
