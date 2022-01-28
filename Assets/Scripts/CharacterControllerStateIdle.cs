@@ -8,11 +8,9 @@ public class CharacterControllerStateIdle : CharacterControllerState
     protected float _timeChangeStateAnimations;
     protected float _timeChangeTriggerAnimations;
     protected bool _readyChangeStateAnimations = true;
-    protected string _name;
     public CharacterControllerStateIdle(GameObject character) : base(character)
     {
         _quantityAnimations = 2;
-        _name = "Idle";
     }
     public override void StartState()
     {
@@ -36,7 +34,6 @@ public class CharacterControllerStateIdle : CharacterControllerState
         }
         if (_timeChangeTriggerAnimations < 0)
         {
-            Debug.Log("SetTrigger  "+_name);
             _characterAnimator.SetTrigger("Stretching");
             _timeChangeTriggerAnimations = Random.Range(15, 20);
         }
