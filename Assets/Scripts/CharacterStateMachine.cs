@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterStateMachine
+public class CharacterStateMachine : MonoBehaviour
 {
     public enum State
     {
@@ -14,18 +14,20 @@ public class CharacterStateMachine
         Jump
     }
     private State _currentState;
-    private readonly Dictionary<State, CharacterControllerState> _listState;
-    private readonly Dictionary<State, State> _listNextState;
+    private CharacterControllerState _currentCharacterControllerState;
+    private  Dictionary<State, CharacterControllerState> _listState;
+    private  Dictionary<State, State> _listNextState;
     public UnityEvent<CharacterControllerState> NewCharacterControllerState = new UnityEvent<CharacterControllerState>();
-    public CharacterStateMachine(GameObject character)
+
+    private void Awake()
     {
-        var characterStateIdle = new CharacterControllerStateIdle(character);
+        var characterStateIdle = new CharacterControllerStateIdle(gameObject);
         characterStateIdle.CharacterStateEnd.AddListener(NextState);
-        var characterStateReady = new CharacterControllerStateReady(character);
+        var characterStateReady = new CharacterControllerStateReady(gameObject);
         characterStateReady.CharacterStateEnd.AddListener(NextState);
-        var characterStateMove = new CharacterControllerStateMove(character);
+        var characterStateMove = new CharacterControllerStateMove(gameObject);
         characterStateMove.CharacterStateEnd.AddListener(NextState);
-        var characterStateJump = new CharacterControllerStateJump(character);
+        var characterStateJump = new CharacterControllerStateJump(gameObject);
         characterStateJump.CharacterStateEnd.AddListener(NextState);
         _listState = new Dictionary<State, CharacterControllerState>()
         {
@@ -42,8 +44,13 @@ public class CharacterStateMachine
          {State.Move, State.Move},
          {State.Jump, State.Move}
         };
-        _currentState = State.Idle;
+        SetCurrentState(State.Idle);
+        //_currentState = State.Idle;
+        //_currentCharacterControllerState = GetCurrentCharacterState();
+
+
     }
+
 
     public void SetState(State state)
     {
@@ -69,6 +76,16 @@ public class CharacterStateMachine
     private void SetCurrentState(State state)
     {
         _currentState = state;
+        _currentCharacterControllerState = GetCurrentCharacterState();
         NewCharacterControllerState.Invoke(GetCurrentCharacterState());
+    }
+    private void Start()
+    {
+        _currentCharacterControllerState.StartState();
+    }
+
+    private void Update()
+    {
+        _currentCharacterControllerState.UpdateState();
     }
 }

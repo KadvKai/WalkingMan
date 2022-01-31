@@ -24,17 +24,9 @@ public class PlayerController: MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Start()
-    {
-        _characterController.StartState();
-    }
-
-    private void Update()
-    {
-        _characterController.UpdateState();
-    }
     public void SetCharacterStateMachine(CharacterStateMachine characterStateMachine)
     {
+        Debug.Log(characterStateMachine);
         characterStateMachine.NewCharacterControllerState.AddListener(NewCharacterControllerState);
         _characterController = characterStateMachine.GetCurrentCharacterState();
     }

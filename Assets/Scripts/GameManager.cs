@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     {
         var character = Instantiate(_playerAvatars[Random.Range(0, _playerAvatars.Length)]);
         var playerController=character.AddComponent<PlayerController>();
-        var characterStateMachine = new CharacterStateMachine(character);
+        var characterStateMachine = character.GetComponent<CharacterStateMachine>(); ;
         playerController.SetCharacterStateMachine(characterStateMachine);
         return characterStateMachine;
     }

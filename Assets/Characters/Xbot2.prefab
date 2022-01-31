@@ -1180,6 +1180,7 @@ GameObject:
   - component: {fileID: 7457743191474067332}
   - component: {fileID: 3897210454481101732}
   - component: {fileID: 7124401509778822485}
+  - component: {fileID: 1709304214325803260}
   m_Layer: 0
   m_Name: Xbot2
   m_TagString: Untagged
@@ -1253,6 +1254,21 @@ CapsuleCollider:
   m_Height: 1.85
   m_Direction: 1
   m_Center: {x: 0, y: 0.90162814, z: 0}
+--- !u!114 &1709304214325803260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239230386127492932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 868a389e3d688ff4ba03f945001833b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewCharacterControllerState:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4866020757081088646
 GameObject:
   m_ObjectHideFlags: 0
