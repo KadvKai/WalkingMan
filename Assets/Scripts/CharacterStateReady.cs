@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterControllerStateReady : CharacterControllerStateIdle
+public class CharacterStateReady : CharacterStateIdle
 {
-    public CharacterControllerStateReady(GameObject character) : base(character)
+    public CharacterStateReady(GameObject character) : base(character)
     {
     }
     protected override void ChangeStateAnimations()

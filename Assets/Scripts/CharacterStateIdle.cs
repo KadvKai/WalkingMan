@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterControllerStateIdle : CharacterControllerState
+public class CharacterStateIdle : CharacterState
 {
     protected int _quantityAnimations;
     protected float _timeChangeStateAnimations;
     protected float _timeChangeTriggerAnimations;
     protected bool _readyChangeStateAnimations = true;
-    public CharacterControllerStateIdle(GameObject character) : base(character)
+    public CharacterStateIdle(GameObject character) : base(character)
     {
         _quantityAnimations = 2;
     }
+
+
     public override void StartState()
     {
         _timeChangeStateAnimations = Random.Range(0, 5);
@@ -41,6 +43,9 @@ public class CharacterControllerStateIdle : CharacterControllerState
         {
             _timeChangeTriggerAnimations -= Time.deltaTime;
         }
+    }
+    public override void FixedUpdateState()
+    {
     }
 
     protected virtual  void ChangeStateAnimations()

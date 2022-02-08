@@ -1,4 +1,5 @@
 
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class BlendTreeCopyPaste : MonoBehaviour
     static int depth = 0;
     static string treePath = "";
     static string log = "";
-    static BlendTree useTree = null;
+    static readonly BlendTree useTree = null;
     public class Pair<T1, T2>
     {
         public T1 First;
@@ -146,3 +147,4 @@ public class BlendTreeCopyPaste : MonoBehaviour
         bt.blendParameterY = paste.blendParameterY;
     }
 }
+#endif

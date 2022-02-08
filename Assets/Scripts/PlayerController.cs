@@ -4,71 +4,57 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController: MonoBehaviour
+public class PlayerController: Controller
 {
     private PlayerInput _playerInput;
-    private Rigidbody _rigidbody;
     private Vector2 _moveDirection;
-    private CharacterControllerState _characterController;
-
+   
     private void Awake()
     {
         _playerInput = new PlayerInput();
-        _playerInput.Enable();
-        _playerInput.Player.Jump.started +=  Jump_started;
-        _playerInput.Player.Jump.performed +=  Jump_performed;
-        _playerInput.Player.Jump.canceled += Jump_canceled;
-        _playerInput.Player.Move.started += Move_started;
-        _playerInput.Player.Move.performed += Move_performed;
-        _playerInput.Player.Move.canceled += Move_canceled;
-        _rigidbody = GetComponent<Rigidbody>();
+        _playerInput.Move.Jump.started +=  Jump_started;
+        _playerInput.Move.Jump.performed +=  Jump_performed;
+        _playerInput.Move.Jump.canceled += Jump_canceled;
+        _playerInput.Move.MoveTouchscreen.performed += MoveTouchscreen_performed;
     }
-
-    public void SetCharacterStateMachine(CharacterStateMachine characterStateMachine)
+    public override Vector2 GetDirection()
     {
-        Debug.Log(characterStateMachine);
-        characterStateMachine.NewCharacterControllerState.AddListener(NewCharacterControllerState);
-        _characterController = characterStateMachine.GetCurrentCharacterState();
+        var moveDirection = _moveDirection;
+        _moveDirection = Vector2.zero;
+        return moveDirection;
     }
-
-    private void NewCharacterControllerState(CharacterControllerState characterControllerState)
+    public override void ControllerEnable()
     {
-        _characterController = characterControllerState;
-        _characterController.StartState();
+        _playerInput.Move.Enable();
     }
 
-    private void Move_started(InputAction.CallbackContext context)
+    public override void ControllerDisable()
     {
-        _moveDirection = context.ReadValue<Vector2>();
-        _rigidbody.velocity = new Vector3(_moveDirection.x,0, _moveDirection.y);
-        //_rigidbody.velocity = context;
-        Debug.Log("Move_started" + context);
+        _playerInput.Move.Disable();
     }
-    private void Move_performed(InputAction.CallbackContext context)
+
+
+    private void MoveTouchscreen_performed(InputAction.CallbackContext context)
     {
-        Debug.Log("Move_performed" + context.ReadValue<Vector2>());
+        _moveDirection+= context.ReadValue<Vector2>();
+        Debug.Log("Move_performed " + context.ReadValue<Vector2>());
     }
 
-    private void Move_canceled(InputAction.CallbackContext context)
-    {
-        Debug.Log("Move_canceled" + context); 
-    }
-
-
-
+ 
     private void Jump_canceled(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump_canceled"); 
+        //Debug.Log("Jump_canceled"); 
     }
 
 
     private void Jump_performed(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump_performed");
+        //Debug.Log("Jump_performed");
     }
 
     private void Jump_started(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump_started"+ context); 
+        //Debug.Log("Jump_started"+ context); 
     }
+
 }

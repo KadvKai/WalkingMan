@@ -2,7 +2,7 @@
     "name": "PlayerInput",
     "maps": [
         {
-            "name": "Player",
+            "name": "Move",
             "id": "e2de0d54-cb16-45e8-b7d9-c7a3cacf5593",
             "actions": [
                 {
@@ -15,13 +15,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Move",
+                    "name": "MoveKeyboard",
                     "type": "Value",
                     "id": "5012c2b0-2973-4cda-969e-c16ec16e2297",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MoveTouchscreen",
+                    "type": "Button",
+                    "id": "15b7ba11-0cb8-47b5-b737-13ab360a2eb3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -37,13 +46,24 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "f5ae1d01-28d9-41ef-8b66-36d2afbe2662",
+                    "path": "<Sensor>",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "2D Vector",
                     "id": "713487d6-6d9b-404c-9352-14b3f79f95cc",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "ScaleVector2(x=2,y=2)",
                     "groups": "",
-                    "action": "Move",
+                    "action": "MoveKeyboard",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -54,7 +74,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "Move",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -65,7 +85,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "Move",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -76,7 +96,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "Move",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -87,18 +107,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
-                    "action": "Move",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "7fc93c64-ea26-410d-8076-fa224ff7e409",
-                    "path": "<Touchscreen>/touch0/delta",
+                    "id": "6b8ee610-2293-4197-aecd-76d863c44d81",
+                    "path": "<Touchscreen>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mobile",
-                    "action": "Move",
+                    "groups": "Mobile;PC",
+                    "action": "MoveTouchscreen",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

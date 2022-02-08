@@ -8,10 +8,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _quantityCharacters;
     [SerializeField] private int _timeToReady;
     [SerializeField] private int _timeToMove;
-    CharacterStateMachine[] _characters;
+    CharacterController[] _characters;
     private void Awake()
     {
-        _characters = new CharacterStateMachine[_quantityCharacters];
+        _characters = new CharacterController[_quantityCharacters];
         for (int i = 0; i < _quantityCharacters; i++)
         {
             _characters[i]=SetCharacter();
@@ -24,30 +24,29 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ChangeState());
     }
 
-    private CharacterStateMachine SetCharacter()
+    private CharacterController SetCharacter()
     {
         var character = Instantiate(_playerAvatars[Random.Range(0, _playerAvatars.Length)]);
-        var playerController=character.AddComponent<PlayerController>();
-        var characterStateMachine = character.GetComponent<CharacterStateMachine>(); ;
-        playerController.SetCharacterStateMachine(characterStateMachine);
-        return characterStateMachine;
+        character.AddComponent<PlayerController>();
+        var characterController = character.GetComponent<CharacterController>();
+        return characterController;
     }
 
     private IEnumerator ChangeState()
     {
         foreach (var character in _characters)
         {
-            character.SetState(CharacterStateMachine.State.Idle);
+            character.SetState(CharacterController.State.Idle);
         }
         yield return new WaitForSeconds(_timeToReady);
         foreach (var character in _characters)
         {
-            character.SetState(CharacterStateMachine.State.Ready);
+            character.SetState(CharacterController.State.Ready);
         }
         yield return new WaitForSeconds(_timeToMove);
         foreach (var character in _characters)
         {
-            character.SetState(CharacterStateMachine.State.Move);
+            character.SetState(CharacterController.State.Move);
         }
     }
 
