@@ -7,38 +7,67 @@ using UnityEngine.InputSystem;
 public class PlayerController: Controller
 {
     private PlayerInput _playerInput;
-    private Vector2 _moveDirection;
-   
+    private Vector2 _moveDirectionCurrent;
+    //private Vector2 _moveDirectionKeyboard;
+    //private Vector2 _moveDirection;
+    private float  _dpi;
+    private readonly float _touchscreenFactor=0.03f;//Коэффициэт приближающий пареметры при вводе с сенсора экрана к значениям с клавиатуры
+
     private void Awake()
     {
+        _dpi = Screen.dpi;
         _playerInput = new PlayerInput();
         _playerInput.Move.Jump.started +=  Jump_started;
         _playerInput.Move.Jump.performed +=  Jump_performed;
         _playerInput.Move.Jump.canceled += Jump_canceled;
         _playerInput.Move.MoveTouchscreen.performed += MoveTouchscreen_performed;
+        _playerInput.Move.MoveTouchscreen.canceled += MoveTouchscreen_canceled;
+        _playerInput.Move.MoveKeyboard.performed += MoveKeyboard_performed;
+        _playerInput.Move.MoveKeyboard.canceled += MoveKeyboard_canceled;
+        enabled = false;
     }
+
     public override Vector2 GetDirection()
     {
-        var moveDirection = _moveDirection;
-        _moveDirection = Vector2.zero;
-        return moveDirection;
+        //Debug.Log("GetDirection moveDirection*100=" + _moveDirectionCurrent * 100);
+        return _moveDirectionCurrent;
     }
     public override void ControllerEnable()
     {
+        enabled=true;
         _playerInput.Move.Enable();
     }
 
     public override void ControllerDisable()
     {
+        enabled = false;
         _playerInput.Move.Disable();
     }
 
 
     private void MoveTouchscreen_performed(InputAction.CallbackContext context)
     {
-        _moveDirection+= context.ReadValue<Vector2>();
-        Debug.Log("Move_performed " + context.ReadValue<Vector2>());
+        _moveDirectionCurrent = context.ReadValue<Vector2>()* _touchscreenFactor / (_dpi*Time.deltaTime);
+        //Debug.Log("MoveTouchscreen_performed " + context);
     }
+    private void MoveTouchscreen_canceled(InputAction.CallbackContext context)
+    {
+        _moveDirectionCurrent = Vector2.zero;
+        //Debug.Log("MoveTouchscreen_canceled " + context);
+    }
+    private void MoveKeyboard_performed(InputAction.CallbackContext context)
+    {
+        _moveDirectionCurrent = context.ReadValue<Vector2>();
+        //Debug.Log("MoveKeyboard_performed " + context.ReadValue<Vector2>());
+        //Debug.Log("MoveKeyboard_performed " + context);
+    }
+    private void MoveKeyboard_canceled(InputAction.CallbackContext context)
+    {
+        _moveDirectionCurrent = Vector2.zero;
+        //Debug.Log("MoveKeyboard_canceled " + context.ReadValue<Vector2>());
+        //Debug.Log("MoveKeyboard_canceled " + context);
+    }
+
 
  
     private void Jump_canceled(InputAction.CallbackContext context)

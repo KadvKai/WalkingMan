@@ -40,7 +40,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""name"": ""MoveKeyboard"",
                     ""type"": ""Value"",
                     ""id"": ""5012c2b0-2973-4cda-969e-c16ec16e2297"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -83,7 +83,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""id"": ""713487d6-6d9b-404c-9352-14b3f79f95cc"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=2,y=2)"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MoveKeyboard"",
                     ""isComposite"": true,
