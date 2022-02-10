@@ -11,7 +11,6 @@ public class PlayerController: Controller
     //private Vector2 _moveDirectionKeyboard;
     //private Vector2 _moveDirection;
     private float  _dpi;
-    private readonly float _touchscreenFactor=0.03f;//Коэффициэт приближающий пареметры при вводе с сенсора экрана к значениям с клавиатуры
 
     private void Awake()
     {
@@ -34,20 +33,23 @@ public class PlayerController: Controller
     }
     public override void ControllerEnable()
     {
-        enabled=true;
+        //enabled=true;
         _playerInput.Move.Enable();
+        //InputSystem.EnableDevice(UnityEngine.InputSystem.Gyroscope.current);
     }
 
     public override void ControllerDisable()
     {
-        enabled = false;
+        //enabled = false;
         _playerInput.Move.Disable();
+        //InputSystem.DisableDevice(UnityEngine.InputSystem.Gyroscope.current);
+
     }
 
 
     private void MoveTouchscreen_performed(InputAction.CallbackContext context)
     {
-        _moveDirectionCurrent = context.ReadValue<Vector2>()* _touchscreenFactor / (_dpi*Time.deltaTime);
+        _moveDirectionCurrent = context.ReadValue<Vector2>() / (_dpi*Time.deltaTime);
         //Debug.Log("MoveTouchscreen_performed " + context);
     }
     private void MoveTouchscreen_canceled(InputAction.CallbackContext context)

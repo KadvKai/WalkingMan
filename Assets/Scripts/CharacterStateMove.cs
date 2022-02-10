@@ -24,15 +24,16 @@ public class CharacterStateMove : CharacterState
 
     public override void UpdateState()
     {
-        Debug.Log(_characterRigidbody.velocity);
-        _characterAnimator.SetFloat("MoveVerticalSpeed", _characterRigidbody.velocity.z);
-        _characterAnimator.SetFloat("MoveHorizontalSpeed", _characterRigidbody.velocity.x);
+        var localVelocity = _characterRigidbody.transform.InverseTransformDirection(_characterRigidbody.velocity);
+        //Debug.Log(_characterRigidbody.velocity);
+        _characterAnimator.SetFloat("MoveVerticalSpeed", localVelocity.z);
+        _characterAnimator.SetFloat("MoveHorizontalSpeed", localVelocity.x);
     }
 
     public override void FixedUpdateState()
     {
         var moveDirection = _controller.GetDirection();
-        _characterRigidbody.AddForce(new Vector3(moveDirection.x, 0, moveDirection.y) * _forceFactor);
+        _characterRigidbody.AddRelativeForce(new Vector3(moveDirection.x, 0, moveDirection.y) * _forceFactor);
         if (_characterRigidbody.velocity.magnitude > _speedMax)
         {
             _characterRigidbody.velocity = _characterRigidbody.velocity.normalized * _speedMax;
