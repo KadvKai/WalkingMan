@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(VirtualCameraTarget))]
 public class PlayerController: Controller
 {
     private PlayerInput _playerInput;
     private Vector2 _moveDirectionCurrent;
-    //private Vector2 _moveDirectionKeyboard;
-    //private Vector2 _moveDirection;
     private float  _dpi;
+    private VirtualCameraTarget _virtualCamera;
 
     private void Awake()
     {
@@ -23,8 +23,27 @@ public class PlayerController: Controller
         _playerInput.Move.MoveTouchscreen.canceled += MoveTouchscreen_canceled;
         _playerInput.Move.MoveKeyboard.performed += MoveKeyboard_performed;
         _playerInput.Move.MoveKeyboard.canceled += MoveKeyboard_canceled;
-        enabled = false;
+        _playerInput.Look.Look.performed += Look_performed;
+        _virtualCamera = GetComponent<VirtualCameraTarget>();
     }
+
+/*#if !UNITY_ANDROID
+    private void OnApplicationFocus(bool focus)
+    {
+            Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+#endif*/
+    /*private void Update()
+    {
+        Debug.Log("Update");
+    }*/
+
+    private void Look_performed(InputAction.CallbackContext context)
+    {
+        //Debug.Log("Look_performed " + context.ReadValue<Vector2>());
+        _virtualCamera.CameraRotation(context.ReadValue<Vector2>());
+    }
+   
 
     public override Vector2 GetDirection()
     {
@@ -34,14 +53,15 @@ public class PlayerController: Controller
     public override void ControllerEnable()
     {
         //enabled=true;
-        _playerInput.Move.Enable();
+        _playerInput.Enable();
+
         //InputSystem.EnableDevice(UnityEngine.InputSystem.Gyroscope.current);
     }
 
     public override void ControllerDisable()
     {
         //enabled = false;
-        _playerInput.Move.Disable();
+        _playerInput.Disable();
         //InputSystem.DisableDevice(UnityEngine.InputSystem.Gyroscope.current);
 
     }

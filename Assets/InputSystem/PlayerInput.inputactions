@@ -31,15 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Look",
-                    "type": "Value",
-                    "id": "88a42c32-8ab5-4166-9ebb-2f4be2d6e1e3",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -130,13 +121,30 @@
                     "action": "MoveTouchscreen",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "Look",
+            "id": "e36fd8cd-2dee-4267-b853-2c5b562d6888",
+            "actions": [
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "7d4f88d2-2957-42f7-8a0e-4a5edd6bb2a0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "c580c8f1-6fac-4b6d-ba3a-aa6e5140dce0",
+                    "id": "02afbba9-3cec-41d7-badb-0f4a0e2a53ea",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=15,y=15)",
+                    "processors": "InvertVector2(invertX=false),ScaleVector2(x=0.1,y=0.1),StickDeadzone",
                     "groups": "PC",
                     "action": "Look",
                     "isComposite": false,
@@ -144,7 +152,7 @@
                 },
                 {
                     "name": "",
-                    "id": "ad368990-be57-4234-8254-f9b5aaf84d16",
+                    "id": "33f5bba0-adca-4d49-9a36-790fa5aaa954",
                     "path": "<Sensor>",
                     "interactions": "",
                     "processors": "",

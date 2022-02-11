@@ -53,15 +53,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""88a42c32-8ab5-4166-9ebb-2f4be2d6e1e3"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -152,13 +143,30 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""action"": ""MoveTouchscreen"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""Look"",
+            ""id"": ""e36fd8cd-2dee-4267-b853-2c5b562d6888"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""7d4f88d2-2957-42f7-8a0e-4a5edd6bb2a0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""c580c8f1-6fac-4b6d-ba3a-aa6e5140dce0"",
+                    ""id"": ""02afbba9-3cec-41d7-badb-0f4a0e2a53ea"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=15,y=15)"",
+                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.1,y=0.1),StickDeadzone"",
                     ""groups"": ""PC"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
@@ -166,7 +174,7 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ad368990-be57-4234-8254-f9b5aaf84d16"",
+                    ""id"": ""33f5bba0-adca-4d49-9a36-790fa5aaa954"",
                     ""path"": ""<Sensor>"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -207,7 +215,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_Move_Jump = m_Move.FindAction("Jump", throwIfNotFound: true);
         m_Move_MoveKeyboard = m_Move.FindAction("MoveKeyboard", throwIfNotFound: true);
         m_Move_MoveTouchscreen = m_Move.FindAction("MoveTouchscreen", throwIfNotFound: true);
-        m_Move_Look = m_Move.FindAction("Look", throwIfNotFound: true);
+        // Look
+        m_Look = asset.FindActionMap("Look", throwIfNotFound: true);
+        m_Look_Look = m_Look.FindAction("Look", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,7 +280,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Move_Jump;
     private readonly InputAction m_Move_MoveKeyboard;
     private readonly InputAction m_Move_MoveTouchscreen;
-    private readonly InputAction m_Move_Look;
     public struct MoveActions
     {
         private @PlayerInput m_Wrapper;
@@ -278,7 +287,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Move_Jump;
         public InputAction @MoveKeyboard => m_Wrapper.m_Move_MoveKeyboard;
         public InputAction @MoveTouchscreen => m_Wrapper.m_Move_MoveTouchscreen;
-        public InputAction @Look => m_Wrapper.m_Move_Look;
         public InputActionMap Get() { return m_Wrapper.m_Move; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -297,9 +305,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveTouchscreen.started -= m_Wrapper.m_MoveActionsCallbackInterface.OnMoveTouchscreen;
                 @MoveTouchscreen.performed -= m_Wrapper.m_MoveActionsCallbackInterface.OnMoveTouchscreen;
                 @MoveTouchscreen.canceled -= m_Wrapper.m_MoveActionsCallbackInterface.OnMoveTouchscreen;
-                @Look.started -= m_Wrapper.m_MoveActionsCallbackInterface.OnLook;
-                @Look.performed -= m_Wrapper.m_MoveActionsCallbackInterface.OnLook;
-                @Look.canceled -= m_Wrapper.m_MoveActionsCallbackInterface.OnLook;
             }
             m_Wrapper.m_MoveActionsCallbackInterface = instance;
             if (instance != null)
@@ -313,13 +318,43 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @MoveTouchscreen.started += instance.OnMoveTouchscreen;
                 @MoveTouchscreen.performed += instance.OnMoveTouchscreen;
                 @MoveTouchscreen.canceled += instance.OnMoveTouchscreen;
+            }
+        }
+    }
+    public MoveActions @Move => new MoveActions(this);
+
+    // Look
+    private readonly InputActionMap m_Look;
+    private ILookActions m_LookActionsCallbackInterface;
+    private readonly InputAction m_Look_Look;
+    public struct LookActions
+    {
+        private @PlayerInput m_Wrapper;
+        public LookActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Look => m_Wrapper.m_Look_Look;
+        public InputActionMap Get() { return m_Wrapper.m_Look; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(LookActions set) { return set.Get(); }
+        public void SetCallbacks(ILookActions instance)
+        {
+            if (m_Wrapper.m_LookActionsCallbackInterface != null)
+            {
+                @Look.started -= m_Wrapper.m_LookActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_LookActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_LookActionsCallbackInterface.OnLook;
+            }
+            m_Wrapper.m_LookActionsCallbackInterface = instance;
+            if (instance != null)
+            {
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
             }
         }
     }
-    public MoveActions @Move => new MoveActions(this);
+    public LookActions @Look => new LookActions(this);
     private int m_PCSchemeIndex = -1;
     public InputControlScheme PCScheme
     {
@@ -343,6 +378,9 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnMoveKeyboard(InputAction.CallbackContext context);
         void OnMoveTouchscreen(InputAction.CallbackContext context);
+    }
+    public interface ILookActions
+    {
         void OnLook(InputAction.CallbackContext context);
     }
 }
