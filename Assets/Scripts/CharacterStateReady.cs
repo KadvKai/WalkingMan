@@ -7,7 +7,7 @@ public class CharacterStateReady : CharacterStateIdle
     public CharacterStateReady(GameObject character) : base(character)
     {
     }
-    protected override void ChangeStateAnimations()
+    protected override void ChangeAnimations()
     {
         _characterAnimator.SetTrigger("Ready");
         _readyChangeStateAnimations = false;

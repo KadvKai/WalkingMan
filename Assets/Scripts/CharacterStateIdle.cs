@@ -26,7 +26,7 @@ public class CharacterStateIdle : CharacterState
         {
             if (_timeChangeStateAnimations < 0)
             {
-                ChangeStateAnimations();
+                ChangeAnimations();
                 _timeChangeStateAnimations = Random.Range(10, 15);
             }
             else
@@ -44,11 +44,8 @@ public class CharacterStateIdle : CharacterState
             _timeChangeTriggerAnimations -= Time.deltaTime;
         }
     }
-    public override void FixedUpdateState()
-    {
-    }
 
-    protected virtual  void ChangeStateAnimations()
+    protected virtual  void ChangeAnimations()
     {
         _characterAnimator.SetInteger("StateAnimations", Random.Range(0, _quantityAnimations));
         

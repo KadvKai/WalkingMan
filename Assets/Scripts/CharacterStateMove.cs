@@ -4,53 +4,87 @@ using UnityEngine;
 
 public class CharacterStateMove : CharacterState
 {
-    //private float _verticalSpeed;
-    //private float _horizontalSpeed;
-    protected Rigidbody _characterRigidbody;
+    private Vector2 _moveDirection;
     private readonly Controller _controller;
-    private const float _speedMax = 5;
-    private const float _forceFactor = 500;
+    private const float _speed = 5;
     private readonly Camera _mainCamera;
     private float _rotationVelocity;
+    private readonly CharacterController _Òharacter—ontroller;
+    private readonly float _fallTimeout = 0.15f;
+    private float _fallTimeoutDelta;
 
     public CharacterStateMove(GameObject character) : base(character)
     {
-        _characterRigidbody = character.GetComponent<Rigidbody>();
         _controller = character.GetComponent<Controller>();
-        _mainCamera= UnityEngine.Camera.main;
+        _controller.Jump.AddListener(Jump);
+        _Òharacter—ontroller = character.GetComponent<CharacterController>();
+        _mainCamera = UnityEngine.Camera.main;
     }
 
     public override void StartState()
     {
         _characterAnimator.SetTrigger("Move");
+        _fallTimeoutDelta = _fallTimeout;
         _controller.ControllerEnable();
     }
 
     public override void UpdateState()
     {
-        var localVelocity = _characterRigidbody.transform.InverseTransformDirection(_characterRigidbody.velocity);
-        //Debug.Log(_characterRigidbody.velocity);
-        //Debug.Log(_characterRigidbody.transform.position);
-        _characterAnimator.SetFloat("MoveVerticalSpeed", localVelocity.z);
-        _characterAnimator.SetFloat("MoveHorizontalSpeed", localVelocity.x);
+        //Debug.Log(_Òharacter—ontroller.isGrounded);
+        if (_Òharacter—ontroller.isGrounded)
+        {
+            _fallTimeoutDelta = _fallTimeout;
+        }
+        else
+        {
+            _fallTimeoutDelta -= Time.deltaTime;
+        }
+        if (_fallTimeoutDelta >= 0)
+        {
+            _moveDirection = _controller.GetDirection();
+            Rotation();
+            Move();
+            ChangeAnimations();
+        }
+        else
+        {
+            FreeFall();
+        }
     }
 
-    public override void FixedUpdateState()
+    private void Rotation()
     {
-        var moveDirection = _controller.GetDirection();
-        if (moveDirection!=Vector2.zero)
+        if (_moveDirection != Vector2.zero)
         {
-        var targetRotation =  _mainCamera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(_characterRigidbody.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
-        _characterRigidbody.MoveRotation(Quaternion.Euler(0.0f, rotation, 0.0f));
+            var targetRotation = _mainCamera.transform.eulerAngles.y;
+            float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
+            _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
         }
-        _characterRigidbody.AddRelativeForce(new Vector3(moveDirection.x, 0, moveDirection.y) * _forceFactor);
-        if (_characterRigidbody.velocity.magnitude > _speedMax)
-        {
-            _characterRigidbody.velocity = _characterRigidbody.velocity.normalized * _speedMax;
-        }
-        //Debug.Log(_characterRigidbody.velocity.magnitude);
-        //_characterRigidbody.velocity = new Vector3(moveDirection.x, 0, moveDirection.y);
+    }
+    private void Move()
+    {
+        Vector3 targetDirection = _Òharacter—ontroller.transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.y));
+        _Òharacter—ontroller.SimpleMove((targetDirection) * _speed);
+    }
+
+    private void Jump()
+    {
+        Debug.Log("ÔÓËÁÓ¯ÂÎ Jump");
+        StopState();
+        CharacterStateEnd.Invoke(this, CharacterStateController.State.Jump);
+    }
+
+    private void ChangeAnimations()
+    {
+        var characterVelocity = _Òharacter—ontroller.transform.InverseTransformDirection(_Òharacter—ontroller.velocity);
+        _characterAnimator.SetFloat("MoveVerticalSpeed", characterVelocity.z);
+        _characterAnimator.SetFloat("MoveHorizontalSpeed", characterVelocity.x);
+    }
+
+    private void FreeFall()
+    {
+            StopState();
+            CharacterStateEnd.Invoke(this, CharacterStateController.State.FreeFall);
     }
 
     private void StopState()

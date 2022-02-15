@@ -17,8 +17,6 @@ public class PlayerController: Controller
         _dpi = Screen.dpi;
         _playerInput = new PlayerInput();
         _playerInput.Move.Jump.started +=  Jump_started;
-        _playerInput.Move.Jump.performed +=  Jump_performed;
-        _playerInput.Move.Jump.canceled += Jump_canceled;
         _playerInput.Move.MoveTouchscreen.performed += MoveTouchscreen_performed;
         _playerInput.Move.MoveTouchscreen.canceled += MoveTouchscreen_canceled;
         _playerInput.Move.MoveKeyboard.performed += MoveKeyboard_performed;
@@ -27,12 +25,12 @@ public class PlayerController: Controller
         _virtualCamera = GetComponent<VirtualCameraTarget>();
     }
 
-/*#if !UNITY_ANDROID
+#if !UNITY_ANDROID
     private void OnApplicationFocus(bool focus)
     {
             Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
     }
-#endif*/
+#endif
     /*private void Update()
     {
         Debug.Log("Update");
@@ -90,22 +88,10 @@ public class PlayerController: Controller
         //Debug.Log("MoveKeyboard_canceled " + context);
     }
 
-
- 
-    private void Jump_canceled(InputAction.CallbackContext context)
-    {
-        //Debug.Log("Jump_canceled"); 
-    }
-
-
-    private void Jump_performed(InputAction.CallbackContext context)
-    {
-        //Debug.Log("Jump_performed");
-    }
-
     private void Jump_started(InputAction.CallbackContext context)
     {
-        //Debug.Log("Jump_started"+ context); 
+        //Debug.Log("Jump_started"); 
+        Jump.Invoke();
     }
 
 }

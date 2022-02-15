@@ -10,7 +10,7 @@ public abstract class CharacterState
     //protected float _timeChangeStateAnimations;
     //protected bool _readyChangeStateAnimations=true;
     //protected int _quantityAnimations=1;
-    public UnityEvent<CharacterState> CharacterStateEnd = new UnityEvent<CharacterState>();
+    public UnityEvent<CharacterState, CharacterStateController.State> CharacterStateEnd = new UnityEvent<CharacterState, CharacterStateController.State>();
 
     public CharacterState(GameObject character)
     {
@@ -21,7 +21,6 @@ public abstract class CharacterState
     
     public abstract void UpdateState();
 
-    public abstract void FixedUpdateState();
     
 
 }

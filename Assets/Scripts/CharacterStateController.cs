@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterController : MonoBehaviour
+public class CharacterStateController : MonoBehaviour
 {
     public enum State
     {
         Idle,
         Ready,
         Move,
-        Jump
+        Jump,
+        FreeFall
     }
     private State _currentState;
     private CharacterState _currentCharacterState;
-    private  Dictionary<State, CharacterState> _listState;
-    private  Dictionary<State, State> _listNextState;
+    private Dictionary<State, CharacterState> _listState;
+    //private  Dictionary<State, State> _listNextState;
     //private readonly Controller _controller;
     //public UnityEvent<CharacterState> NewCharacterControllerState = new UnityEvent<CharacterState>();
 
@@ -27,24 +28,27 @@ public class CharacterController : MonoBehaviour
         var characterStateReady = new CharacterStateReady(gameObject);
         //characterStateReady.CharacterStateEnd.AddListener(NextState);
         var characterStateMove = new CharacterStateMove(gameObject);
-        //characterStateMove.CharacterStateEnd.AddListener(NextState);
+        characterStateMove.CharacterStateEnd.AddListener(NextState);
         var characterStateJump = new CharacterStateJump(gameObject);
         characterStateJump.CharacterStateEnd.AddListener(NextState);
+        var characterStateFreeFall = new CharacterStateFreeFall(gameObject);
+        characterStateFreeFall.CharacterStateEnd.AddListener(NextState);
         _listState = new Dictionary<State, CharacterState>()
         {
             {State.Idle, characterStateIdle},
             {State.Ready, characterStateReady},
             {State.Move, characterStateMove},
-            {State.Jump, characterStateJump}
+            {State.Jump, characterStateJump},
+            {State.FreeFall, characterStateFreeFall}
         };
 
-        _listNextState = new Dictionary<State, State>()
+        /*_listNextState = new Dictionary<State, State>()
         {
          {State.Idle, State.Idle},
          {State.Ready, State.Ready},
          {State.Move, State.Move},
          {State.Jump, State.Move}
-        };
+        };*/
         _currentState = State.Idle;
         _currentCharacterState = _listState[_currentState];
         //SetCurrentState(State.Idle);
@@ -63,11 +67,11 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private void NextState(CharacterState characterState)
+    private void NextState(CharacterState currentState, CharacterStateController.State nextState)
     {
-        if (_currentCharacterState==characterState )
+        if (_currentCharacterState == currentState)
         {
-            SetState(_listNextState[_currentState]);
+            SetState(nextState);
         }
     }
 
@@ -77,8 +81,4 @@ public class CharacterController : MonoBehaviour
         //Debug.Log("deltaTime=" + Time.deltaTime);
     }
 
-    private void FixedUpdate()
-    {
-        _currentCharacterState.FixedUpdateState();
-    }
 }

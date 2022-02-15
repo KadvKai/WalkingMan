@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class VirtualCameraTarget : MonoBehaviour
 {
-    [SerializeField] private GameObject _virtualCamera;
+    [SerializeField] private GameObject _virtualCameraTarget;
     [SerializeField] private int _topClamp;
     [SerializeField] private int _bottomClamp;
     [SerializeField] private float _virtualCameraTargetAngleVerticalOffset;
     private float _virtualCameraTargetAngleHorizontal;
     private float _virtualCameraTargetAngleVertical;
-    Vector2 _input;
+    private Vector2 _input;
 
-    private void Awake()
-    {
-        _virtualCamera.transform.rotation = Quaternion.Euler(_virtualCameraTargetAngleVerticalOffset, 0, 0);
-    }
     #if !UNITY_ANDROID
     private void OnApplicationFocus(bool focus)
     {
             Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
     }
 #endif
+    private void Awake()
+    {
+        
+    }
 
+    private void Start()
+    {
+      _virtualCameraTarget.transform.rotation = Quaternion.Euler(_virtualCameraTargetAngleVerticalOffset, 0, 0);  
+    }
     private void LateUpdate()
     {
         CameraRot();
@@ -45,6 +49,6 @@ public class VirtualCameraTarget : MonoBehaviour
         if (_virtualCameraTargetAngleHorizontal > 360f) _virtualCameraTargetAngleHorizontal -= 360f;
         _virtualCameraTargetAngleVertical = Mathf.Clamp(_virtualCameraTargetAngleVertical, _bottomClamp, _topClamp);
 
-        _virtualCamera.transform.rotation = Quaternion.Euler(_virtualCameraTargetAngleVertical+ _virtualCameraTargetAngleVerticalOffset, _virtualCameraTargetAngleHorizontal, 0);
+        _virtualCameraTarget.transform.rotation = Quaternion.Euler(_virtualCameraTargetAngleVertical+ _virtualCameraTargetAngleVerticalOffset, _virtualCameraTargetAngleHorizontal, 0);
     }
 }
