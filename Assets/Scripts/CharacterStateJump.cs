@@ -16,7 +16,8 @@ public class CharacterStateJump : CharacterState
     {
         _speed = _сharacterСontroller.velocity;
         _verticalVelocity = Mathf.Sqrt(JumpHeight * 2 * 9.81f);
-        // Переход на анимацию прыжка
+        //Debug.Log("Анимация Jump");
+        _characterAnimator.SetTrigger("Jump");
     }
     public override void UpdateState()
     {

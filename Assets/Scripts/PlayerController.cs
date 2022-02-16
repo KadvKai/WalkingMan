@@ -36,6 +36,10 @@ public class PlayerController: Controller
         Debug.Log("Update");
     }*/
 
+    private void Start()
+    {
+        _playerInput.Enable();
+    }
     private void Look_performed(InputAction.CallbackContext context)
     {
         //Debug.Log("Look_performed " + context.ReadValue<Vector2>());
@@ -51,7 +55,7 @@ public class PlayerController: Controller
     public override void ControllerEnable()
     {
         //enabled=true;
-        _playerInput.Enable();
+        //_playerInput.Move.Enable();
 
         //InputSystem.EnableDevice(UnityEngine.InputSystem.Gyroscope.current);
     }
@@ -59,7 +63,7 @@ public class PlayerController: Controller
     public override void ControllerDisable()
     {
         //enabled = false;
-        _playerInput.Disable();
+        //_playerInput.Move.Disable();
         //InputSystem.DisableDevice(UnityEngine.InputSystem.Gyroscope.current);
 
     }
@@ -90,7 +94,7 @@ public class PlayerController: Controller
 
     private void Jump_started(InputAction.CallbackContext context)
     {
-        //Debug.Log("Jump_started"); 
+        Debug.Log("Jump_started"); 
         Jump.Invoke();
     }
 

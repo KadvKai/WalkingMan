@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private CharacterStateController SetCharacter()
     {
         var character = Instantiate(_playerAvatars[Random.Range(0, _playerAvatars.Length)], Vector3.zero, Quaternion.identity);
-        character.AddComponent<PlayerController>();
+        character.AddComponent<PlayerController>().enabled=false;
         var characterController = character.GetComponent<CharacterStateController>();
         return characterController;
     }
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         foreach (var character in _characters)
         {
             character.SetState(CharacterStateController.State.Move);
+            character.GetComponent<Controller>().enabled = true;
         }
     }
 

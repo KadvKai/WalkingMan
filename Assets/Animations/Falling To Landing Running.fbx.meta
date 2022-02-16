@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 56ba1cea1e2099643887aeb5ef4b980f
+guid: c622659d3a1bdee4993f621a18742c94
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -7,8 +7,8 @@ ModelImporter:
       74: -203655887218126122
     second: mixamo.com
   - first:
-      74: 5539831331247536789
-    second: Jump
+      74: -4363282065259634264
+    second: Falling To Landing Running
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -38,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump
+      name: Falling To Landing Running
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 10
+      firstFrame: 10
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -58,7 +58,7 @@ ModelImporter:
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
-      mirror: 0
+      mirror: 1
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []

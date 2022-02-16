@@ -6,7 +6,10 @@ public class CharacterStateMove : CharacterState
 {
     private Vector2 _moveDirection;
     private readonly Controller _controller;
-    private const float _speed = 5;
+    private const float _accelerationMoveDirection=3;
+    private const float _speedForward = 5;
+    private const float _speedSide = 3;
+    private const float _speedBack = 2;
     private readonly Camera _mainCamera;
     private float _rotationVelocity;
     private readonly CharacterController _ñharacterÑontroller;
@@ -23,6 +26,7 @@ public class CharacterStateMove : CharacterState
 
     public override void StartState()
     {
+        //Debug.Log("Àíèìàöèÿ Move");
         _characterAnimator.SetTrigger("Move");
         _fallTimeoutDelta = _fallTimeout;
         _controller.ControllerEnable();
@@ -41,7 +45,7 @@ public class CharacterStateMove : CharacterState
         }
         if (_fallTimeoutDelta >= 0)
         {
-            _moveDirection = _controller.GetDirection();
+            _moveDirection = Vector2.MoveTowards(_moveDirection, _controller.GetDirection(),_accelerationMoveDirection*Time.deltaTime);
             Rotation();
             Move();
             ChangeAnimations();
@@ -63,13 +67,14 @@ public class CharacterStateMove : CharacterState
     }
     private void Move()
     {
-        Vector3 targetDirection = _ñharacterÑontroller.transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.y));
-        _ñharacterÑontroller.SimpleMove((targetDirection) * _speed);
+        Vector3 targetDirection = _ñharacterÑontroller.transform.TransformDirection(new Vector3(_moveDirection.x *_speedSide, 0, _moveDirection.y > 0 ? _moveDirection.y * _speedForward : _moveDirection.y * _speedBack)) ;
+        _ñharacterÑontroller.SimpleMove((targetDirection));
+        //Debug.Log(_ñharacterÑontroller.transform.InverseTransformDirection(_ñharacterÑontroller.velocity));
     }
 
     private void Jump()
     {
-        Debug.Log("ïğîèçîøåë Jump");
+        //Debug.Log("ïğîèçîøåë Jump");
         StopState();
         CharacterStateEnd.Invoke(this, CharacterStateController.State.Jump);
     }
@@ -83,7 +88,9 @@ public class CharacterStateMove : CharacterState
 
     private void FreeFall()
     {
-            StopState();
+        //Debug.Log("Àíèìàöèÿ Falling");
+        //_characterAnimator.SetTrigger("Falling");
+        StopState();
             CharacterStateEnd.Invoke(this, CharacterStateController.State.FreeFall);
     }
 

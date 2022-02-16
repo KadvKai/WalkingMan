@@ -18,10 +18,6 @@ public class VirtualCameraTarget : MonoBehaviour
             Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
     }
 #endif
-    private void Awake()
-    {
-        
-    }
 
     private void Start()
     {

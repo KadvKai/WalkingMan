@@ -15,7 +15,8 @@ public class CharacterStateFreeFall : CharacterState
     public override void StartState()
     {
         _speed= _сharacterСontroller.velocity;
-        // Переход на анимацию падения
+        //Debug.Log("Анимация FreeFall");
+        _characterAnimator.SetTrigger("FreeFall");
     }
 
     public override void UpdateState()
@@ -23,7 +24,8 @@ public class CharacterStateFreeFall : CharacterState
         //Debug.Log("isGrounded в FreeFall=" + _сharacterСontroller.isGrounded);
         if (_сharacterСontroller.isGrounded)
         {
-            // Анимация приземления;
+            //Debug.Log("Анимация Falling");
+            _characterAnimator.SetTrigger("Falling");
             CharacterStateEnd.Invoke(this, CharacterStateController.State.Move);
         }
         else 
