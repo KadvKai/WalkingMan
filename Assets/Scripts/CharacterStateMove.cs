@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ public class CharacterStateMove : CharacterState
     private Vector2 _moveDirection;
     private readonly Controller _controller;
     private const float _accelerationMoveDirection=3;
-    private const float _speedForward = 5;
-    private const float _speedSide = 3;
-    private const float _speedBack = 2;
+    private const float _speedForward = 2f;
+    private const float _speedSide = 2f;
+    private const float _speedBack = 1.2f;
     private readonly Camera _mainCamera;
     private float _rotationVelocity;
     private readonly CharacterController _Òharacter—ontroller;
@@ -82,8 +83,9 @@ public class CharacterStateMove : CharacterState
     private void ChangeAnimations()
     {
         var characterVelocity = _Òharacter—ontroller.transform.InverseTransformDirection(_Òharacter—ontroller.velocity);
-        _characterAnimator.SetFloat("MoveVerticalSpeed", characterVelocity.z);
-        _characterAnimator.SetFloat("MoveHorizontalSpeed", characterVelocity.x);
+        Debug.Log("VerticalSpeed=" + characterVelocity.z+ "  HorizontalSpeed=" + characterVelocity.x);
+        _characterAnimator.SetFloat("MoveVerticalSpeed", (float)Math.Round(characterVelocity.z, 1)+1 );
+        _characterAnimator.SetFloat("MoveHorizontalSpeed", (float)Math.Round(characterVelocity.x, 1));
     }
 
     private void FreeFall()

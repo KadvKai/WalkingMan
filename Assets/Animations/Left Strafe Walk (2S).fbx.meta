@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c622659d3a1bdee4993f621a18742c94
+guid: 1cf71c085eb95b64ca2210326e0741d9
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -7,8 +7,8 @@ ModelImporter:
       74: -203655887218126122
     second: mixamo.com
   - first:
-      74: -4363282065259634264
-    second: Falling To Landing Running
+      74: -5900262063726219469
+    second: Left Strafe Walk (2S)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -38,27 +38,27 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Falling To Landing Running
+      name: Left Strafe Walk (2S)
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 10
-      lastFrame: 30
+      firstFrame: 0
+      lastFrame: 28
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 0
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
-      mirror: 1
+      mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events: []

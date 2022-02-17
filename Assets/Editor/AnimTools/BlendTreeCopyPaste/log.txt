@@ -1,4 +1,1 @@
 Assets/Editor/AnimTools/BlendTreeCopyPaste/btcopy_-1,0.asset
-Assets/Editor/AnimTools/BlendTreeCopyPaste/btcopy_0,0.asset
-Assets/Editor/AnimTools/BlendTreeCopyPaste/btcopy_0,1.asset
-Assets/Editor/AnimTools/BlendTreeCopyPaste/btcopy_0,2.asset

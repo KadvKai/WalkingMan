@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
             character.SetState(CharacterStateController.State.Move);
             character.GetComponent<Controller>().enabled = true;
         }
+        Time.timeScale = 0.1f;
     }
 
     private IEnumerator OnGround()

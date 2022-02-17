@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 61d237363be856c479877a1476a67cec
+guid: a9d264ca6e5ac8d45b2163d66ddd9719
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Fast Run
+    second: mixamo.com
+  - first:
+      74: 8785451024055890424
+    second: Walk Strafe Right (0.75S)
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -18,8 +21,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: "Invalid copied Avatar Rig Configuration:\n\tNo human bone found.
-      Ensure both rig type match\n"
+    rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
@@ -36,11 +38,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fast Run
+      name: Walk Strafe Right (0.75S)
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

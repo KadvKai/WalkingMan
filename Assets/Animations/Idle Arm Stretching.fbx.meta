@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 63dab6a28a0d7c14e960b49d48ed6372
+guid: e5ef6a5f50f3cbd4f8f8d28adaf75dd0
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Left Turn
+    second: Idle Arm Stretching
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Left Turn
+      name: Idle Arm Stretching
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 35
+      lastFrame: 266
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -47,8 +47,8 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlend: 1
+      loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1

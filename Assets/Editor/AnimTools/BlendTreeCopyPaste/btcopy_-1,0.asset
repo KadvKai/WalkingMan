@@ -9,36 +9,99 @@ BlendTree:
   m_Name: btcopy_-1,0
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -167885529881713801, guid: 6e9b13945f828cb4492b88b17eeed55c,
-      type: 2}
-    m_Threshold: 0
-    m_Position: {x: 0, y: 0.2}
+    m_Motion: {fileID: -203655887218126122, guid: 15f873c0ab52a8e4d93fa617385975d2,
+      type: 3}
+    m_Threshold: -0.5
+    m_Position: {x: -3.5, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: MoveVerticalSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 1071616679913296343, guid: 6e9b13945f828cb4492b88b17eeed55c,
-      type: 2}
+    m_Motion: {fileID: -5900262063726219469, guid: 1cf71c085eb95b64ca2210326e0741d9,
+      type: 3}
     m_Threshold: 0
-    m_Position: {x: -0.2, y: 0}
+    m_Position: {x: -2, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: MoveVerticalSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 4738927369809366449, guid: 6e9b13945f828cb4492b88b17eeed55c,
-      type: 2}
-    m_Threshold: 0
-    m_Position: {x: 0.2, y: 0}
+    m_Motion: {fileID: 224691032584438476, guid: 41463ce3993902140a837664a699b685,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: -0.75, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: ef92499f14b0ff648beef7ec557c46f5,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8785451024055890424, guid: a9d264ca6e5ac8d45b2163d66ddd9719,
+      type: 3}
+    m_Threshold: 1.5
+    m_Position: {x: 0.75, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -1301747444019802112, guid: 372042813ce32cf41ba2350715e21921,
+      type: 3}
+    m_Threshold: 2
+    m_Position: {x: 2, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 8391329288044812273, guid: bd8805fa20ebc354f96193691c7ce950,
+      type: 3}
+    m_Threshold: 2.5
+    m_Position: {x: 3.5, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 61d237363be856c479877a1476a67cec,
+      type: 3}
+    m_Threshold: 3
+    m_Position: {x: 0, y: 6}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 3651cb3b2d63e1e489caffea9842fecb,
+      type: 3}
+    m_Threshold: 3.5
+    m_Position: {x: 0, y: 4}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: MoveVerticalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: b023a4e949cc0b84b980b4a29ad16752,
+      type: 3}
+    m_Threshold: 4
+    m_Position: {x: 0, y: 2}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: MoveVerticalSpeed
     m_Mirror: 0
   m_BlendParameter: MoveHorizontalSpeed
   m_BlendParameterY: MoveVerticalSpeed
-  m_MinThreshold: 0
-  m_MaxThreshold: 0
-  m_UseAutomaticThresholds: 1
+  m_MinThreshold: -0.5
+  m_MaxThreshold: 4
+  m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 3
+  m_BlendType: 2

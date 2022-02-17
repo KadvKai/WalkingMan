@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b023a4e949cc0b84b980b4a29ad16752
+guid: 37d80b1688e7e0943bf47a740999ec5c
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Walking
+    second: Ready Leg Stretch
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,19 +35,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walking
+      name: Ready Leg Stretch
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 98
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
+      loopTime: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -71,10 +71,10 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
-    importVisibility: 0
-    importBlendShapes: 0
-    importCameras: 0
-    importLights: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0

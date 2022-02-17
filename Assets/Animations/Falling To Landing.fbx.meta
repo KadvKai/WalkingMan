@@ -38,8 +38,8 @@ ModelImporter:
       name: Falling To Landing
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 32
+      firstFrame: 7
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
