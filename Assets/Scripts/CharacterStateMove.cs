@@ -8,8 +8,8 @@ public class CharacterStateMove : CharacterState
     private Vector2 _moveDirection;
     private readonly Controller _controller;
     private const float _accelerationMoveDirection=3;
-    private const float _speedForward = 2f;
-    private const float _speedSide = 2f;
+    private const float _speedForward = 5f;
+    private const float _speedSide = 3f;
     private const float _speedBack = 1.2f;
     private readonly Camera _mainCamera;
     private float _rotationVelocity;
@@ -25,15 +25,15 @@ public class CharacterStateMove : CharacterState
         _mainCamera = UnityEngine.Camera.main;
     }
 
-    public override void StartState()
+    public override void StateStart()
     {
         //Debug.Log("Àíèìàöèÿ Move");
-        _characterAnimator.SetTrigger("Move");
+        _characterAnimator.SetBool("Move", true);
         _fallTimeoutDelta = _fallTimeout;
         _controller.ControllerEnable();
     }
 
-    public override void UpdateState()
+    public override void StateUpdate()
     {
         //Debug.Log(_ñharacterÑontroller.isGrounded);
         if (_ñharacterÑontroller.isGrounded)
@@ -57,6 +57,12 @@ public class CharacterStateMove : CharacterState
         }
     }
 
+    public override void StateEnd()
+    {
+        _characterAnimator.SetBool("Move", false);
+        _controller.ControllerDisable();
+    }
+
     private void Rotation()
     {
         if (_moveDirection != Vector2.zero)
@@ -76,28 +82,24 @@ public class CharacterStateMove : CharacterState
     private void Jump()
     {
         //Debug.Log("ïðîèçîøåë Jump");
-        StopState();
+        StateEnd();
         CharacterStateEnd.Invoke(this, CharacterStateController.State.Jump);
     }
 
     private void ChangeAnimations()
     {
         var characterVelocity = _ñharacterÑontroller.transform.InverseTransformDirection(_ñharacterÑontroller.velocity);
-        Debug.Log("VerticalSpeed=" + characterVelocity.z+ "  HorizontalSpeed=" + characterVelocity.x);
-        _characterAnimator.SetFloat("MoveVerticalSpeed", (float)Math.Round(characterVelocity.z, 1)+1 );
+        //Debug.Log("VerticalSpeed=" + characterVelocity.z+ "  HorizontalSpeed=" + characterVelocity.x);
+        _characterAnimator.SetFloat("MoveVerticalSpeed", (float)Math.Round(characterVelocity.z, 1) );
         _characterAnimator.SetFloat("MoveHorizontalSpeed", (float)Math.Round(characterVelocity.x, 1));
     }
 
     private void FreeFall()
     {
         //Debug.Log("Àíèìàöèÿ Falling");
-        //_characterAnimator.SetTrigger("Falling");
-        StopState();
+        StateEnd();
             CharacterStateEnd.Invoke(this, CharacterStateController.State.FreeFall);
     }
 
-    private void StopState()
-    {
-        _controller.ControllerDisable();
-    }
+
 }

@@ -116,7 +116,7 @@
                     "id": "6b8ee610-2293-4197-aecd-76d863c44d81",
                     "path": "<Touchscreen>/delta",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.03,y=0.03)",
+                    "processors": "ScaleVector2(x=0.05,y=0.05)",
                     "groups": "Mobile",
                     "action": "MoveTouchscreen",
                     "isComposite": false,

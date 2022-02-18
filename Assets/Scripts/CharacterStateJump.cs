@@ -12,14 +12,14 @@ public class CharacterStateJump : CharacterState
     {
         _Òharacter—ontroller = character.GetComponent<CharacterController>();
     }
-    public override void StartState()
+    public override void StateStart()
     {
         _speed = _Òharacter—ontroller.velocity;
         _verticalVelocity = Mathf.Sqrt(JumpHeight * 2 * 9.81f);
         //Debug.Log("¿ÌËÏ‡ˆËˇ Jump");
-        _characterAnimator.SetTrigger("Jump");
+        _characterAnimator.SetBool("Jump", true);
     }
-    public override void UpdateState()
+    public override void StateUpdate()
     {
         if (_verticalVelocity > 0)
         {
@@ -31,5 +31,9 @@ public class CharacterStateJump : CharacterState
             CharacterStateEnd.Invoke(this, CharacterStateController.State.FreeFall);
         }
     }
-    
+
+    public override void StateEnd()
+    {
+        _characterAnimator.SetBool("Jump", false); 
+    }
 }

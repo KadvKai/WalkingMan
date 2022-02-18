@@ -12,26 +12,28 @@ public class CharacterStateFreeFall : CharacterState
     }
 
 
-    public override void StartState()
+    public override void StateStart()
     {
         _speed= _ñharacterÑontroller.velocity;
         //Debug.Log("Àíèìàöèÿ FreeFall");
-        _characterAnimator.SetTrigger("FreeFall");
+        _characterAnimator.SetBool("FreeFall", true);
     }
 
-    public override void UpdateState()
+    public override void StateUpdate()
     {
         //Debug.Log("isGrounded â FreeFall=" + _ñharacterÑontroller.isGrounded);
         if (_ñharacterÑontroller.isGrounded)
         {
-            //Debug.Log("Àíèìàöèÿ Falling");
-            _characterAnimator.SetTrigger("Falling");
             CharacterStateEnd.Invoke(this, CharacterStateController.State.Move);
         }
         else 
         {
             _ñharacterÑontroller.SimpleMove(_speed);
         }
+    }
+    public override void StateEnd()
+    {
+        _characterAnimator.SetBool("FreeFall", false);
     }
     
 }

@@ -14,13 +14,13 @@ public class CharacterStateIdle : CharacterState
     }
 
 
-    public override void StartState()
+    public override void StateStart()
     {
         _timeChangeStateAnimations = Random.Range(0, 5);
         _timeChangeTriggerAnimations = Random.Range(5, 10);
     }
 
-    public override void UpdateState()
+    public override void StateUpdate()
     {
         if (_readyChangeStateAnimations)
         {
@@ -44,10 +44,13 @@ public class CharacterStateIdle : CharacterState
             _timeChangeTriggerAnimations -= Time.deltaTime;
         }
     }
+    public override void StateEnd()
+    {
+    }
 
     protected virtual  void ChangeAnimations()
     {
-        _characterAnimator.SetInteger("StateAnimations", Random.Range(0, _quantityAnimations));
+        _characterAnimator.SetInteger("StateIdleAnimations", Random.Range(0, _quantityAnimations));
         
     }
 }

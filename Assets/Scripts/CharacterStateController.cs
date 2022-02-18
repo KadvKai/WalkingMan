@@ -17,16 +17,11 @@ public class CharacterStateController : MonoBehaviour
     private State _currentState;
     private CharacterState _currentCharacterState;
     private Dictionary<State, CharacterState> _listState;
-    //private  Dictionary<State, State> _listNextState;
-    //private readonly Controller _controller;
-    //public UnityEvent<CharacterState> NewCharacterControllerState = new UnityEvent<CharacterState>();
 
     private void Start()
     {
         var characterStateIdle = new CharacterStateIdle(gameObject);
-        //characterStateIdle.CharacterStateEnd.AddListener(NextState);
         var characterStateReady = new CharacterStateReady(gameObject);
-        //characterStateReady.CharacterStateEnd.AddListener(NextState);
         var characterStateMove = new CharacterStateMove(gameObject);
         characterStateMove.CharacterStateEnd.AddListener(NextState);
         var characterStateJump = new CharacterStateJump(gameObject);
@@ -42,28 +37,19 @@ public class CharacterStateController : MonoBehaviour
             {State.FreeFall, characterStateFreeFall}
         };
 
-        /*_listNextState = new Dictionary<State, State>()
-        {
-         {State.Idle, State.Idle},
-         {State.Ready, State.Ready},
-         {State.Move, State.Move},
-         {State.Jump, State.Move}
-        };*/
         _currentState = State.Idle;
         _currentCharacterState = _listState[_currentState];
-        //SetCurrentState(State.Idle);
     }
 
     public void SetState(State state)
     {
+        _currentCharacterState.StateEnd();
         Debug.Log("CharacterStateMachine состояние " + state);
         if (_currentState != state)
         {
-            //SetCurrentState(state);
             _currentState = state;
             _currentCharacterState = _listState[_currentState];
-            _currentCharacterState.StartState();
-            //NewCharacterControllerState.Invoke(_currentCharacterState);
+            _currentCharacterState.StateStart();
         }
     }
 
@@ -71,13 +57,14 @@ public class CharacterStateController : MonoBehaviour
     {
         if (_currentCharacterState == currentState)
         {
+
             SetState(nextState);
         }
     }
 
     private void Update()
     {
-        _currentCharacterState.UpdateState();
+        _currentCharacterState.StateUpdate();
         //Debug.Log("deltaTime=" + Time.deltaTime);
     }
 

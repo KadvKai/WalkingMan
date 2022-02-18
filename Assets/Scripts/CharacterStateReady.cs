@@ -9,7 +9,11 @@ public class CharacterStateReady : CharacterStateIdle
     }
     protected override void ChangeAnimations()
     {
-        _characterAnimator.SetTrigger("Ready");
+        _characterAnimator.SetBool("Ready",true); 
         _readyChangeStateAnimations = false;
+    }
+    public override void StateEnd()
+    {
+        _characterAnimator.SetBool("Ready", false);
     }
 }
