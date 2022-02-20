@@ -166,19 +166,8 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""id"": ""02afbba9-3cec-41d7-badb-0f4a0e2a53ea"",
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""InvertVector2(invertX=false),ScaleVector2(x=0.1,y=0.1),StickDeadzone"",
+                    ""processors"": ""ScaleVector2(x=0.1,y=0.1),InvertVector2(invertX=false)"",
                     ""groups"": ""PC"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""33f5bba0-adca-4d49-9a36-790fa5aaa954"",
-                    ""path"": ""<Sensor>"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Mobile"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

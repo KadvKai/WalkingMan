@@ -16,7 +16,7 @@ public class CharacterStateMove : CharacterState
     private readonly CharacterController _Òharacter—ontroller;
     private readonly float _fallTimeout = 0.15f;
     private float _fallTimeoutDelta;
-
+    private const float _maxAngleCameraRotation = 60;
     public CharacterStateMove(GameObject character) : base(character)
     {
         _controller = character.GetComponent<Controller>();
@@ -47,6 +47,7 @@ public class CharacterStateMove : CharacterState
         if (_fallTimeoutDelta >= 0)
         {
             _moveDirection = Vector2.MoveTowards(_moveDirection, _controller.GetDirection(),_accelerationMoveDirection*Time.deltaTime);
+            RotationBehindCamera();
             Rotation();
             Move();
             ChangeAnimations();
@@ -63,6 +64,32 @@ public class CharacterStateMove : CharacterState
         _controller.ControllerDisable();
     }
 
+    private void RotationBehindCamera()
+    {
+        var mainCameraOnPlane = Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up);
+        var cameraRotation = Vector3.SignedAngle(_Òharacter—ontroller.transform.forward, mainCameraOnPlane, _Òharacter—ontroller.transform.up);
+        //Debug.Log("EulerAngles=" + _mainCamera.transform.rotation.eulerAngles);
+        if (cameraRotation > _maxAngleCameraRotation)
+        {
+            _characterAnimator.SetInteger("Rotation", 1);
+            var targetRotation = _Òharacter—ontroller.transform.eulerAngles.y+90;
+            float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity,0.2f);
+            Debug.Log(_Òharacter—ontroller.transform.eulerAngles.y+"  ");
+            _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        }
+        else if (cameraRotation < -_maxAngleCameraRotation)
+        {
+            _characterAnimator.SetInteger("Rotation", -1);
+            var targetRotation = _Òharacter—ontroller.transform.eulerAngles.y - 90;
+            float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
+            _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        }
+        else
+        {
+            _characterAnimator.SetInteger("Rotation", 0);
+        }
+
+    }
     private void Rotation()
     {
         if (_moveDirection != Vector2.zero)
@@ -76,12 +103,14 @@ public class CharacterStateMove : CharacterState
     {
         Vector3 targetDirection = _Òharacter—ontroller.transform.TransformDirection(new Vector3(_moveDirection.x *_speedSide, 0, _moveDirection.y > 0 ? _moveDirection.y * _speedForward : _moveDirection.y * _speedBack)) ;
         _Òharacter—ontroller.SimpleMove((targetDirection));
+        //Debug.Log("Move" + _Òharacter—ontroller.velocity);
         //Debug.Log(_Òharacter—ontroller.transform.InverseTransformDirection(_Òharacter—ontroller.velocity));
     }
 
     private void Jump()
     {
         //Debug.Log("ÔÓËÁÓ¯ÂÎ Jump");
+        //Debug.Log("MoveJump" + _Òharacter—ontroller.velocity);
         StateEnd();
         CharacterStateEnd.Invoke(this, CharacterStateController.State.Jump);
     }

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(VirtualCameraTarget))]
+[RequireComponent(typeof(VirtualCameraController))]
 public class PlayerController: Controller
 {
     private PlayerInput _playerInput;
     private Vector2 _moveDirectionCurrent;
     private float  _dpi;
-    private VirtualCameraTarget _virtualCamera;
+    private VirtualCameraController _virtualCamera;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class PlayerController: Controller
         _playerInput.Move.MoveKeyboard.performed += MoveKeyboard_performed;
         _playerInput.Move.MoveKeyboard.canceled += MoveKeyboard_canceled;
         _playerInput.Look.Look.performed += Look_performed;
-        _virtualCamera = GetComponent<VirtualCameraTarget>();
+        _virtualCamera = GetComponent<VirtualCameraController>();
     }
 
 #if !UNITY_ANDROID
@@ -94,7 +94,7 @@ public class PlayerController: Controller
 
     private void Jump_started(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump_started"); 
+        //Debug.Log("Jump_started"); 
         Jump.Invoke();
     }
 
