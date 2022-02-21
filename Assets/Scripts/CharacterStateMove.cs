@@ -16,7 +16,11 @@ public class CharacterStateMove : CharacterState
     private readonly CharacterController _Òharacter—ontroller;
     private readonly float _fallTimeout = 0.15f;
     private float _fallTimeoutDelta;
-    private const float _maxAngleCameraRotation = 60;
+    private const float _maxAngleCameraRotation = 45;
+    private const float _speedRotation = 2;
+    private bool _turn;
+    private Vector3 _targetRotation;
+    private const float _stepRotationBehindCamera = 60;
     public CharacterStateMove(GameObject character) : base(character)
     {
         _controller = character.GetComponent<Controller>();
@@ -47,10 +51,10 @@ public class CharacterStateMove : CharacterState
         if (_fallTimeoutDelta >= 0)
         {
             _moveDirection = Vector2.MoveTowards(_moveDirection, _controller.GetDirection(),_accelerationMoveDirection*Time.deltaTime);
-            RotationBehindCamera();
-            Rotation();
-            Move();
-            ChangeAnimations();
+            if (_turn==true) Turn();
+            if (_moveDirection == Vector2.zero) RotationBehindCamera();
+            if (_moveDirection != Vector2.zero && _turn == false)  Rotation();
+            if (_turn == false)  Move();
         }
         else
         {
@@ -64,6 +68,7 @@ public class CharacterStateMove : CharacterState
         _controller.ControllerDisable();
     }
 
+
     private void RotationBehindCamera()
     {
         var mainCameraOnPlane = Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up);
@@ -72,17 +77,14 @@ public class CharacterStateMove : CharacterState
         if (cameraRotation > _maxAngleCameraRotation)
         {
             _characterAnimator.SetInteger("Rotation", 1);
-            var targetRotation = _Òharacter—ontroller.transform.eulerAngles.y+90;
-            float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity,0.2f);
-            Debug.Log(_Òharacter—ontroller.transform.eulerAngles.y+"  ");
-            _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            _targetRotation = Vector3.Lerp(_Òharacter—ontroller.transform.forward, _Òharacter—ontroller.transform.right, _stepRotationBehindCamera / 90);
+            _turn = true;
         }
         else if (cameraRotation < -_maxAngleCameraRotation)
         {
             _characterAnimator.SetInteger("Rotation", -1);
-            var targetRotation = _Òharacter—ontroller.transform.eulerAngles.y - 90;
-            float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
-            _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            _targetRotation = Vector3.Lerp(_Òharacter—ontroller.transform.forward, -_Òharacter—ontroller.transform.right, _stepRotationBehindCamera / 90);
+            _turn = true;
         }
         else
         {
@@ -92,19 +94,18 @@ public class CharacterStateMove : CharacterState
     }
     private void Rotation()
     {
-        if (_moveDirection != Vector2.zero)
-        {
             var targetRotation = _mainCamera.transform.eulerAngles.y;
             float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
             _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-        }
     }
     private void Move()
     {
+        
         Vector3 targetDirection = _Òharacter—ontroller.transform.TransformDirection(new Vector3(_moveDirection.x *_speedSide, 0, _moveDirection.y > 0 ? _moveDirection.y * _speedForward : _moveDirection.y * _speedBack)) ;
         _Òharacter—ontroller.SimpleMove((targetDirection));
         //Debug.Log("Move" + _Òharacter—ontroller.velocity);
-        //Debug.Log(_Òharacter—ontroller.transform.InverseTransformDirection(_Òharacter—ontroller.velocity));
+            ChangeAnimations();
+
     }
 
     private void Jump()
@@ -129,6 +130,18 @@ public class CharacterStateMove : CharacterState
         StateEnd();
             CharacterStateEnd.Invoke(this, CharacterStateController.State.FreeFall);
     }
-
-
+    private void Turn()
+    {
+            if (Vector3.Angle(_Òharacter—ontroller.transform.forward, _targetRotation) <1)
+            {
+                _Òharacter—ontroller.transform.forward = _targetRotation;
+                _turn = false;
+            }
+            if (Vector3.Angle(_Òharacter—ontroller.transform.forward, Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up).normalized) < 1)
+            {
+                _Òharacter—ontroller.transform.forward = Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up).normalized;
+                _turn = false;
+            }
+            _Òharacter—ontroller.transform.forward = Vector3.RotateTowards(_Òharacter—ontroller.transform.forward, _targetRotation, _speedRotation * Time.deltaTime, 0.0f);
+    }
 }
