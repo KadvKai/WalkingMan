@@ -10,7 +10,7 @@ public class CharacterStateMove : CharacterState
     private const float _accelerationMoveDirection=3;
     private const float _speedForward = 5f;
     private const float _speedSide = 3f;
-    private const float _speedBack = 1.2f;
+    private const float _speedBack = 3f;
     private readonly Camera _mainCamera;
     private float _rotationVelocity;
     private readonly CharacterController _Òharacter—ontroller;
