@@ -65,7 +65,6 @@ public class CharacterStateController : MonoBehaviour
     private void Update()
     {
         _currentCharacterState.StateUpdate();
-        //Debug.Log("deltaTime=" + Time.deltaTime);
     }
 
 }

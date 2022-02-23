@@ -31,25 +31,18 @@ public class PlayerController: Controller
             Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
     }
 #endif
-    /*private void Update()
-    {
-        Debug.Log("Update");
-    }*/
-
     private void Start()
     {
         _playerInput.Enable();
     }
     private void Look_performed(InputAction.CallbackContext context)
     {
-        //Debug.Log("Look_performed " + context.ReadValue<Vector2>());
         _virtualCamera.CameraRotation(context.ReadValue<Vector2>());
     }
    
 
     public override Vector2 GetDirection()
     {
-        //Debug.Log("GetDirection moveDirection*100=" + _moveDirectionCurrent * 100);
         return _moveDirectionCurrent;
     }
     public override void ControllerEnable()
@@ -72,29 +65,22 @@ public class PlayerController: Controller
     private void MoveTouchscreen_performed(InputAction.CallbackContext context)
     {
         _moveDirectionCurrent = context.ReadValue<Vector2>() / (_dpi*Time.deltaTime);
-        //Debug.Log("MoveTouchscreen_performed " + context);
     }
     private void MoveTouchscreen_canceled(InputAction.CallbackContext context)
     {
         _moveDirectionCurrent = Vector2.zero;
-        //Debug.Log("MoveTouchscreen_canceled " + context);
     }
     private void MoveKeyboard_performed(InputAction.CallbackContext context)
     {
         _moveDirectionCurrent = context.ReadValue<Vector2>();
-        //Debug.Log("MoveKeyboard_performed " + context.ReadValue<Vector2>());
-        //Debug.Log("MoveKeyboard_performed " + context);
     }
     private void MoveKeyboard_canceled(InputAction.CallbackContext context)
     {
         _moveDirectionCurrent = Vector2.zero;
-        //Debug.Log("MoveKeyboard_canceled " + context.ReadValue<Vector2>());
-        //Debug.Log("MoveKeyboard_canceled " + context);
     }
 
     private void Jump_started(InputAction.CallbackContext context)
     {
-        //Debug.Log("Jump_started"); 
         Jump.Invoke();
     }
 
