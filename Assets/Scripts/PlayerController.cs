@@ -25,12 +25,12 @@ public class PlayerController: Controller
         _virtualCamera = GetComponent<VirtualCameraController>();
     }
 
-#if !UNITY_ANDROID
+/*#if !UNITY_ANDROID
     private void OnApplicationFocus(bool focus)
     {
             Cursor.lockState = true ? CursorLockMode.Locked : CursorLockMode.None;
     }
-#endif
+#endif*/
     /*private void Update()
     {
         Debug.Log("Update");

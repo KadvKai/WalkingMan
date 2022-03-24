@@ -8,19 +8,30 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _quantityCharacters;
     [SerializeField] private int _timeToReady;
     [SerializeField] private int _timeToMove;
-    private CharacterStateController[] _characters;
+    private List<CharacterStateController> _characters;
     private void Awake()
     {
-        _characters = new CharacterStateController[_quantityCharacters];
-        for (int i = 0; i < _quantityCharacters; i++)
+        _characters = new List<CharacterStateController>();
+        var gameManagers = GameObject.FindObjectsOfType<GameManager>();
+        
+        for (int i = 0; i < gameManagers.Length-1; i++)
         {
-            _characters[i] = SetCharacter();
-
+            Destroy(gameManagers[i].gameObject);
         }
+    }
+
+    public void AdCharacter(CharacterStateController character)
+    {
+        _characters.Add(character);
     }
 
     private void Start()
     {
+        for (int i = 0; i < _quantityCharacters; i++)
+        {
+            AdCharacter(SetCharacter());
+
+        }
         StartCoroutine(ChangeState());
     }
 
@@ -55,8 +66,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator OnGround()
     {
-        var characterControllers = new CharacterController[_characters.Length];
-        for (int i = 0; i < _characters.Length; i++)
+        var characterControllers = new CharacterController[_characters.Count];
+        for (int i = 0; i < _characters.Count; i++)
         {
             characterControllers[i] = _characters[i].GetComponent<CharacterController>();
             StartCoroutine(GroundInstallation(characterControllers[i]));
