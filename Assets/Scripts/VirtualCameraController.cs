@@ -35,7 +35,6 @@ public class VirtualCameraController : MonoBehaviour
     }
     public void CameraRotation(Vector2 input)
     {
-        //Debug.Log("input" + input);
         _input = input;
     }
 
@@ -43,8 +42,8 @@ public class VirtualCameraController : MonoBehaviour
     {
         if (_input.sqrMagnitude >= 0.01f)
         {
-        _virtualCameraTargetAngleHorizontal += _input.x;// * Time.deltaTime;
-        _virtualCameraTargetAngleVertical += _input.y;// * Time.deltaTime;
+        _virtualCameraTargetAngleHorizontal += _input.x;
+        _virtualCameraTargetAngleVertical += _input.y;
         }
 
         if (_virtualCameraTargetAngleHorizontal < -360f) _virtualCameraTargetAngleHorizontal += 360f;

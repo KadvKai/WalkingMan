@@ -144,7 +144,7 @@
                     "id": "02afbba9-3cec-41d7-badb-0f4a0e2a53ea",
                     "path": "<Pointer>/delta",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=0.1,y=0.1),InvertVector2(invertX=false)",
+                    "processors": "ScaleVector2(x=0.1,y=0.1),InvertVector2(invertX=false),StickDeadzone",
                     "groups": "PC",
                     "action": "Look",
                     "isComposite": false,

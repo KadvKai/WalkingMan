@@ -1516,8 +1516,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _virtualCameraTarget: {fileID: 2056303026364364566}
-  _topClamp: 60
-  _bottomClamp: -60
+  _constraintTarget: {fileID: 0}
+  _topClamp: 30
+  _bottomClamp: -30
   _virtualCameraTargetAngleVerticalOffset: 15
 --- !u!1 &4866020757081088646
 GameObject:

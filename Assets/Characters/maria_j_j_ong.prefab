@@ -906,8 +906,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _virtualCameraTarget: {fileID: 594044038380053994}
   _constraintTarget: {fileID: 2748001533557655118}
-  _topClamp: 60
-  _bottomClamp: -60
+  _topClamp: 30
+  _bottomClamp: -30
   _virtualCameraTargetAngleVerticalOffset: 15
 --- !u!114 &2845860643291292016
 MonoBehaviour:

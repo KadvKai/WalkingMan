@@ -16,7 +16,6 @@ public class CharacterStateJump : CharacterState
     {
         _speed = _ñharacterÑontroller.velocity;
         _verticalVelocity = Mathf.Sqrt(JumpHeight * 2 * 9.81f);
-        //Debug.Log("Àíèìàöèÿ Jump");
         _characterAnimator.SetBool("Jump", true);
     }
     public override void StateUpdate()
