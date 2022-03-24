@@ -816,6 +816,7 @@ GameObject:
   - component: {fileID: 967114078513204424}
   - component: {fileID: -3137731291839789153}
   - component: {fileID: 3013312524062950881}
+  - component: {fileID: 153694149845239162}
   m_Layer: 0
   m_Name: maria_j_j_ong
   m_TagString: Untagged
@@ -923,6 +924,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftFoot: {fileID: 6675778741090581305}
   _rightFoot: {fileID: 2975979187765430259}
+  _grassSounds:
+  - {fileID: 8300000, guid: 47725f6feac414b4fbbea7b551f5728b, type: 3}
+  - {fileID: 8300000, guid: fbbf8e40a0776d14292f88c79c03d92c, type: 3}
+  - {fileID: 8300000, guid: 0154dfb6f4a259b4e97267f6f81bfe80, type: 3}
   _groundSounds:
   - {fileID: 8300000, guid: 757bc0a6e4a60db48b4294c6a3179d42, type: 3}
   - {fileID: 8300000, guid: 5374599bb18dc814aa9a5c483f46abc4, type: 3}
@@ -930,10 +935,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: de9154efbc9849f4f8d856b0c891a63f, type: 3}
   - {fileID: 8300000, guid: 1c269ced2865cd540ab174d2ef6e78fc, type: 3}
   - {fileID: 8300000, guid: e17bea8c2632a4d47a7744d94ba946de, type: 3}
-  _grassSounds:
-  - {fileID: 8300000, guid: 47725f6feac414b4fbbea7b551f5728b, type: 3}
-  - {fileID: 8300000, guid: fbbf8e40a0776d14292f88c79c03d92c, type: 3}
-  - {fileID: 8300000, guid: 0154dfb6f4a259b4e97267f6f81bfe80, type: 3}
   _rockSounds:
   - {fileID: 8300000, guid: 7d0416bc8c7d5c940b2cbf6b9641efdf, type: 3}
   - {fileID: 8300000, guid: a32069b0ee073734b9bf96e7cca5349b, type: 3}
@@ -1161,6 +1162,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &153694149845239162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3043679964231125489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bb1e883066b094c8f9f03478246388, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Jump:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3046053175716985855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,7 +1361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ebc22d3ee94144d9736bae86f55ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cyrrentFoot: 0
   FootStep:
     m_PersistentCalls:
       m_Calls: []
@@ -1974,7 +1989,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ebc22d3ee94144d9736bae86f55ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cyrrentFoot: 1
   FootStep:
     m_PersistentCalls:
       m_Calls: []

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 public class BlendTreeCopyPaste : MonoBehaviour
 {
-    const string workDir = "Assets/Editor/AnimTools/BlendTreeCopyPaste/";
+    /*const string workDir = "Assets/Editor/AnimTools/BlendTreeCopyPaste/";
     const string filename = "btcopy_";
     static int depth = 0;
     static string treePath = "";
@@ -145,6 +145,6 @@ public class BlendTreeCopyPaste : MonoBehaviour
         bt.children = paste.children.Clone() as ChildMotion[];
         bt.blendParameter = paste.blendParameter;
         bt.blendParameterY = paste.blendParameterY;
-    }
+    }*/
 }
 #endif

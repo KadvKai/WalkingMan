@@ -39,6 +39,7 @@ public class CharacterStateController : MonoBehaviour
 
         _currentState = State.Idle;
         _currentCharacterState = _listState[_currentState];
+        GameManager.GameManagerStatic.AdCharacter(this);
     }
 
     public void SetState(State state)

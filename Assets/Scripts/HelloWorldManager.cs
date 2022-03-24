@@ -8,7 +8,7 @@ using UnityEngine;
         void OnGUI()
         {
             GUILayout.BeginArea(new Rect(10, 10, 300, 300));
-        Debug.Log("IsClient=" + NetworkManager.Singleton.IsClient + "   IsServer=" + NetworkManager.Singleton.IsServer);
+        //Debug.Log("IsClient=" + NetworkManager.Singleton.IsClient + "   IsServer=" + NetworkManager.Singleton.IsServer);
             if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
             {
                 StartButtons();

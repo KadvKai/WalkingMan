@@ -8,9 +8,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _quantityCharacters;
     [SerializeField] private int _timeToReady;
     [SerializeField] private int _timeToMove;
+    private CharacterStateController.State _currentState;
+    public static GameManager GameManagerStatic { get; private set; }
     private List<CharacterStateController> _characters;
     private void Awake()
     {
+        GameManagerStatic = this;
         _characters = new List<CharacterStateController>();
         var gameManagers = GameObject.FindObjectsOfType<GameManager>();
         
@@ -23,43 +26,49 @@ public class GameManager : MonoBehaviour
     public void AdCharacter(CharacterStateController character)
     {
         _characters.Add(character);
+        character.SetState(_currentState);
     }
 
     private void Start()
     {
         for (int i = 0; i < _quantityCharacters; i++)
         {
-            AdCharacter(SetCharacter());
-
+            //AdCharacter(SetCharacter());
+            SetCharacter();
         }
         StartCoroutine(ChangeState());
     }
 
-    private CharacterStateController SetCharacter()
+    private void SetCharacter()
     {
-        var character = Instantiate(_playerAvatars[Random.Range(0, _playerAvatars.Length)], Vector3.zero, Quaternion.identity);
-        character.AddComponent<PlayerController>().enabled=false;
-        var characterController = character.GetComponent<CharacterStateController>();
-        return characterController;
+        Instantiate(_playerAvatars[Random.Range(0, _playerAvatars.Length)], Vector3.zero, Quaternion.identity);
+        //var character = Instantiate(_playerAvatars[Random.Range(0, _playerAvatars.Length)], Vector3.zero, Quaternion.identity);
+        //character.GetComponent<PlayerController>().enabled = false;
     }
 
     private IEnumerator ChangeState()
     {
         yield return StartCoroutine(OnGround());
+            _currentState = CharacterStateController.State.Idle;
+            Debug.Log("State.Idle");
         foreach (var character in _characters)
         {
-            character.SetState(CharacterStateController.State.Idle);
+            character.SetState(_currentState);
         }
         yield return new WaitForSeconds(_timeToReady);
+            _currentState = CharacterStateController.State.Ready;
+            Debug.Log("State.Ready");
         foreach (var character in _characters)
         {
-            character.SetState(CharacterStateController.State.Ready);
+            character.SetState(_currentState);
         }
         yield return new WaitForSeconds(_timeToMove);
+            _currentState = CharacterStateController.State.Move;
+            Debug.Log("State.Move");
         foreach (var character in _characters)
         {
-            character.SetState(CharacterStateController.State.Move);
-            character.GetComponent<Controller>().enabled = true;
+            character.SetState(_currentState);
+            //character.GetComponent<Controller>().enabled = true;
         }
         //Time.timeScale = 0.1f;
     }

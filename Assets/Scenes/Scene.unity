@@ -653,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1172658473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerAvatars:
   - {fileID: 3043679964231125489, guid: 6562719184cde4d4d8ffa4dd03d7b81c, type: 3}
-  _quantityCharacters: 1
+  _quantityCharacters: 0
   _timeToReady: 5
   _timeToMove: 5
 --- !u!4 &1306200199
