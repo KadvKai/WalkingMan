@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class CharacterStateMove : CharacterState
 {
+    public NetworkVariable<Vector3> TargetDirection = new NetworkVariable<Vector3>();
+    public NetworkVariable<Vector3> RotationForward = new NetworkVariable<Vector3>();
     private Vector2 _moveDirection;
     private readonly Controller _controller;
     private const float _accelerationMoveDirection = 3;
@@ -12,7 +15,7 @@ public class CharacterStateMove : CharacterState
     private const float _speedSide = 3f;
     private const float _speedBack = 3f;
     private readonly Camera _mainCamera;
-    private float _rotationVelocity;
+    //private float _rotationVelocity;
     private readonly CharacterController _Òharacter—ontroller;
     private readonly float _fallTimeout = 0.15f;
     private float _fallTimeoutDelta;
@@ -34,6 +37,7 @@ public class CharacterStateMove : CharacterState
         _characterAnimator.SetBool("Move", true);
         _fallTimeoutDelta = _fallTimeout;
         _controller.ControllerEnable();
+        RotationForward.Value = _Òharacter—ontroller.transform.forward;
     }
 
     public override void StateUpdate()
@@ -49,10 +53,12 @@ public class CharacterStateMove : CharacterState
         if (_fallTimeoutDelta >= 0)
         {
             _moveDirection = Vector2.MoveTowards(_moveDirection, _controller.GetDirection(), _accelerationMoveDirection * Time.deltaTime);
-            if (_turn == true) Turn();
             if (_moveDirection == Vector2.zero) RotationBehindCamera();
+            if (_turn == true) Turn();
             if (_moveDirection != Vector2.zero && _turn == false) Rotation();
             if (_turn == false) Move();
+            _Òharacter—ontroller.transform.forward = RotationForward.Value;
+            _Òharacter—ontroller.SimpleMove((TargetDirection.Value));
         }
         else
         {
@@ -91,15 +97,16 @@ public class CharacterStateMove : CharacterState
     }
     private void Rotation()
     {
-        var targetRotation = _mainCamera.transform.eulerAngles.y;
-        float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
-        _Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        //var targetRotation = _mainCamera.transform.eulerAngles.y;
+        //float rotation = Mathf.SmoothDampAngle(_Òharacter—ontroller.transform.eulerAngles.y, targetRotation, ref _rotationVelocity, 0.2f);
+        //_Òharacter—ontroller.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+        RotationForward.Value = Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up).normalized;
     }
     private void Move()
     {
 
-        Vector3 targetDirection = _Òharacter—ontroller.transform.TransformDirection(new Vector3(_moveDirection.x * _speedSide, 0, _moveDirection.y > 0 ? _moveDirection.y * _speedForward : _moveDirection.y * _speedBack));
-        _Òharacter—ontroller.SimpleMove((targetDirection));
+        TargetDirection.Value = _Òharacter—ontroller.transform.TransformDirection(new Vector3(_moveDirection.x * _speedSide, 0, _moveDirection.y > 0 ? _moveDirection.y * _speedForward : _moveDirection.y * _speedBack));
+        //_Òharacter—ontroller.SimpleMove((targetDirection));
         ChangeAnimations();
 
     }
@@ -126,14 +133,14 @@ public class CharacterStateMove : CharacterState
     {
         if (Vector3.Angle(_Òharacter—ontroller.transform.forward, _targetRotation) < 1)
         {
-            _Òharacter—ontroller.transform.forward = _targetRotation;
+            RotationForward.Value = _targetRotation;
             _turn = false;
         }
         if (Vector3.Angle(_Òharacter—ontroller.transform.forward, Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up).normalized) < 1)
         {
-            _Òharacter—ontroller.transform.forward = Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up).normalized;
+            RotationForward.Value = Vector3.ProjectOnPlane(_mainCamera.transform.forward, _Òharacter—ontroller.transform.up).normalized;
             _turn = false;
         }
-        _Òharacter—ontroller.transform.forward = Vector3.RotateTowards(_Òharacter—ontroller.transform.forward, _targetRotation, _speedRotation * Time.deltaTime, 0.0f);
+        RotationForward.Value = Vector3.RotateTowards(_Òharacter—ontroller.transform.forward, _targetRotation, _speedRotation * Time.deltaTime, 0.0f);
     }
 }
